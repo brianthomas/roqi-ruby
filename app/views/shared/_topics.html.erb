@@ -1,0 +1,19 @@
+
+<table>
+  <thead><tr><th>Name</th><th>Resources</th><th>Related Subjects</th></tr></thead>
+  <tbody>
+    <% for t in @topics %>
+      <tr id='topic_<%= t.id %>'>
+    	<td><%= t.name %></td>
+        <td align="center">
+           <%= t.resources.count %>
+        </td>
+        <td>
+           <% for s in t.subjects %>
+              <%= link_to s.name, subject_path(s)  %>
+           <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,12 @@
+<h1>Show Subject</h1>
+
+<p>
+<b>Subject:</b>  <%= @show_subject.name %> <b>URI:</b>  <%= @show_subject.uri %>
+</p>
+<p>
+  Topics with this subject:
+</p>
+<p>
+  <%= pagination_links (@topics) %>
+  <%= render 'shared/topics' %>
+</p>

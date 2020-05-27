@@ -1,0 +1,14 @@
+
+<table>
+  <thead><tr><td><b>Name</b></td><td><b>Id</b></td><td><b>Topic</b></td><td><b>Title</b></td></tr></thead>
+  <tbody>
+    <% for r in @resources %>
+      <tr id='resource_<%= r.id %>'>
+    	<td><%= r.name %></td>
+        <td><%= r.identifier %></td>
+        <td><%= r.topic.name %></td>
+        <td><%= r.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

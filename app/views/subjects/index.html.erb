@@ -1,0 +1,20 @@
+<h1>Subjects</h1>
+
+<%= pagination_links(@subjects) %>
+
+<hr/>
+<p>
+
+<table>
+  <thead><tr><td><b>Name</b></td><td><b>URI</b></td></tr></thead>
+  <tbody>
+    <% for s in @subjects %>
+      <tr id='subject_<%= s.id %>'>
+    	<td><%= link_to s.name, subject_path(s)  %></td>
+        <td><%= s.uri %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</p>

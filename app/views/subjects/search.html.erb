@@ -1,0 +1,106 @@
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+        xmlns="http://www.w3.org/1999/html"
+        src="assets/jquery.tokeninput.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/token-input.css" />
+
+
+<!-- this is server-side tokenization -->
+<!--
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#match").tokenInput("<!--%= list_subjects_path %>", { theme: "facebook"});
+  });
+</script>
+-->
+
+<!-- this is local client-side tokenization -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#match-local").tokenInput(<%= raw @subjects.map { |s| {:id => s.id, :name => s.name} }.to_json %>,
+                { theme: "facebook", preventDuplicates: true }
+        );
+    });
+</script>
+
+<p>
+
+  <%= form_for @query do |f|%>
+    <center>
+      <table width="90%" border="0" bgcolor="#add8e6">
+        <tbody>
+        <tr><td align="center" colspan="4"><h1>Registry Object Query Interface</h1></td></tr>
+        <tr>
+          <td colspan="4" align="left"><b>Instructions:</b> This tool will allow you to discover VO resources by topic.
+            Topics are defined by indicating one or more related subjects. To enter a subject,  start typing
+            into text box below and select matching values of interest. When you have entered all the subjects
+            of interest, click the 'Search' button to search for resources which match selected topic.
+            Click 'Reset' to reset the form.
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2" align="right">
+            <center>
+              <%= f.text_field :name, :id => 'match-local', :name => 'match', :value => @query, :width => '100',
+                               "data-pre" => @match.map { |s| { :id => s.id, :name => s.name }}.to_json
+              %>
+            </center>
+          </td>
+          <td align="left">
+            <%= f.submit :value => 'Search' %>
+            <%= f.submit :value => 'Reset' %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4"><hr/></td>
+        </tr>
+        </tbody>
+      </table>
+      <table width="90%" border="0" bgcolor="#add8e6">
+        <tbody>
+        <tr>
+          <td colspan="4">
+            <table>
+              <thead><tr><th><h3>Filter Results</h3></th>
+                <th colspan="3">
+                  <center><h3>Matching Resources</h3></center>
+                </th></tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td colspan="1" valign="top">
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td><b>PLACE SUBCLS SELECTION HERE</b></td>
+                    </tr>
+                    <tr>
+                      <td><b>PLACE RELATEDTO SELECTION HERE</b></td>
+                    </tr>
+                    <tr>
+                      <td><b>PLACE PROPERTIES SELECTION HERE</b></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td colspan="3" valign="top">
+                  <center>
+                    <%= pagination_links(@resources, :last_query => @query) %>
+                    <%= render 'shared/resources' %>
+                  </center>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </center>
+<% end %>
+
+</p>
+
+<!--%= will_paginate(@search.results) %-->
+
+<!--%= link_to 'Search Subjects', search_subjects_path(@query) %-->
